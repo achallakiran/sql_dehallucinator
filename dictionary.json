@@ -1,0 +1,240 @@
+{
+    "tables": [
+        {
+            "name": "customer_vehicle_info",
+            "description": "Master table containing information related to vehicles and their owners (customers). Use this to link vehicles to customers.",
+            "columns": [
+                {
+                    "name": "customer_id",
+                    "meaning": "Unique identifier for the customer or vehicle in the system."
+                },
+                {
+                    "name": "customer_name",
+                    "meaning": "Name of the customer or vehicle owner."
+                },
+                {
+                    "name": "customer_mobile",
+                    "meaning": "Contact number of the customer."
+                },
+                {
+                    "name": "customer_vehicle_number",
+                    "meaning": "The registration number (license plate) of the vehicle."
+                },
+                {
+                    "name": "vehicle_type",
+                    "meaning": "Contains the brand, model, and variant of the vehicle, usually separated by a hyphen."
+                },
+                {
+                    "name": "chasis_no",
+                    "meaning": "Unique chassis number of the vehicle."
+                },
+                {
+                    "name": "engine_no",
+                    "meaning": "Unique engine number of the vehicle."
+                },
+                {
+                    "name": "customer_status",
+                    "meaning": "Status of the customer account, e.g., ACTIVE or BLOCKED."
+                },
+                {
+                    "name": "fuel_type",
+                    "meaning": "The fuel type of the vehicle (Petrol, Diesel, CNG, etc.)."
+                },
+                {
+                    "name": "last_crm_contact_date",
+                    "meaning": "The date when the customer was last contacted by the CRM team."
+                }
+            ]
+        },
+        {
+            "name": "employee_info",
+            "description": "Contains details of employees working in the organization or specific workshops.",
+            "columns": [
+                {
+                    "name": "employee_id",
+                    "meaning": "Unique identifier for the employee."
+                },
+                {
+                    "name": "workshop_id",
+                    "meaning": "The ID of the workshop the employee belongs to. Links to workshop_info table."
+                },
+                {
+                    "name": "first_name",
+                    "meaning": "First name of the employee."
+                },
+                {
+                    "name": "last_name",
+                    "meaning": "Last name of the employee."
+                },
+                {
+                    "name": "designation",
+                    "meaning": "Job title or designation of the employee."
+                },
+                {
+                    "name": "status",
+                    "meaning": "Employment status (ACTIVE or BLOCKED). Only active users can access the system."
+                },
+                {
+                    "name": "contact_number",
+                    "meaning": "Phone number of the employee."
+                }
+            ]
+        },
+        {
+            "name": "job_card_details",
+            "description": "Records the initial problems and complaints reported when a vehicle arrives for service. This is the 'Job Card'.",
+            "columns": [
+                {
+                    "name": "job_card_id",
+                    "meaning": "Unique identifier for the job card."
+                },
+                {
+                    "name": "customer_id",
+                    "meaning": "Links to the customer_vehicle_info table."
+                },
+                {
+                    "name": "vehicle_svc_id",
+                    "meaning": "Links to the vehicle_service_summary table."
+                },
+                {
+                    "name": "problem_desc",
+                    "meaning": "Description of the vehicle problem reported by the customer."
+                },
+                {
+                    "name": "complaint_status",
+                    "meaning": "Current status of vehicle. R (Returned)"
+                },
+                {
+                    "name": "workshop_finding",
+                    "meaning": "Technical findings recorded by the workshop mechanic after inspection."
+                },
+                {
+                    "name": "created_on",
+                    "meaning": "Date and time when the job card was created."
+                }
+            ]
+        },
+        {
+            "name": "vehicle_service_details",
+            "description": "Line-item details of spares parts and labour services used during a vehicle service. Contains cost breakdowns.",
+            "columns": [
+                {
+                    "name": "vehicle_svc_details_id",
+                    "meaning": "Unique identifier for this line item."
+                },
+                {
+                    "name": "vehicle_svc_id",
+                    "meaning": "Links to the service summary. Use this to group items by a specific service event."
+                },
+                {
+                    "name": "service_type_cd",
+                    "meaning": "Flag denoting type: 'PR' for Spare Parts, 'S' for Service/Labour."
+                },
+                {
+                    "name": "service_desc",
+                    "meaning": "Name or description of the spare part or service performed."
+                },
+                {
+                    "name": "quantity",
+                    "meaning": "Number of units used."
+                },
+                {
+                    "name": "amount",
+                    "meaning": "Cost per unit or total cost for this line item."
+                },
+                {
+                    "name": "service_date",
+                    "meaning": "Date when this specific service/part was added."
+                },
+                {
+                    "name": "tax_rate",
+                    "meaning": "Tax percentage applied to this item."
+                },
+                {
+                    "name": "identifier",
+                    "meaning": "'Billing' means part of a vehicle service. 'CounterSales' means sold directly over the counter."
+                }
+            ]
+        },
+        {
+            "name": "vehicle_service_summary",
+            "description": "The high-level summary of a service event (Invoice level). Contains totals, dates, and status.",
+            "columns": [
+                {
+                    "name": "vehicle_svc_summary_id",
+                    "meaning": "Primary key. Unique Service ID."
+                },
+                {
+                    "name": "customer_id",
+                    "meaning": "ID of the customer whose vehicle is being serviced."
+                },
+                {
+                    "name": "service_date",
+                    "meaning": "Date when the service occurred."
+                },
+                {
+                    "name": "total_amt",
+                    "meaning": "Final invoice amount (Parts + Labour + Tax)."
+                },
+                {
+                    "name": "service_amt",
+                    "meaning": "Total charges for Labour/Service only."
+                },
+                {
+                    "name": "parts_amt",
+                    "meaning": "Total charges for Spare Parts only."
+                },
+                {
+                    "name": "invoice_id",
+                    "meaning": "Generated Invoice Number. Don't use invoice_id to find invoiced orders. Ignore invoice_id column in sql."
+                },
+                {
+                    "name": "service_status",
+                    "meaning": "Current status of the vehicle: A (Arrived), R (Ready), B (Blocked), D (Done/Delivered), I (Invoiced)"
+                },
+                {
+                    "name": "kilometer_driven",
+                    "meaning": "Odometer reading at the time of service."
+                },
+                {
+                    "name": "technician",
+                    "meaning": "Name of the technician assigned to this service."
+                },
+                {
+                    "name": "bill_type",
+                    "meaning": "Invoice type: 'Standard' (Non-Tax) or 'Detailed' (Tax Invoice)."
+                }
+            ]
+        },
+        {
+            "name": "workshop_info",
+            "description": "Details about the workshop or garage branches.",
+            "columns": [
+                {
+                    "name": "workshop_id",
+                    "meaning": "Unique ID for the workshop."
+                },
+                {
+                    "name": "workshop_name",
+                    "meaning": "Name of the workshop business."
+                },
+                {
+                    "name": "address",
+                    "meaning": "Physical address of the workshop."
+                },
+                {
+                    "name": "city",
+                    "meaning": "City where the workshop is located."
+                },
+                {
+                    "name": "contact_nbr",
+                    "meaning": "Phone number for the workshop."
+                },
+                {
+                    "name": "gst_number",
+                    "meaning": "GST (Tax) Number of the workshop."
+                }
+            ]
+        }
+    ]
+}
